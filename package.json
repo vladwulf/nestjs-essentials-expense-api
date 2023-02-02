@@ -1,5 +1,5 @@
 {
-  "name": "expense-api",
+  "name": "nestjs-essentials-expense-api",
   "version": "1.0.0",
   "description": "Expense API example project for NestJs Essentials course",
   "author": "Vladimir Agaev",
