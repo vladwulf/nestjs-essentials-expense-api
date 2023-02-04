@@ -28,5 +28,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          source: ./dist
-          target: /home/express-api/dist
+          source: './dist/*'
+          target: /home/express-api
