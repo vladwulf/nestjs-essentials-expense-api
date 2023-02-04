@@ -3,9 +3,6 @@ on:
   workflow_dispatch:
     branches:
       - main
-env:
-  NODE_ENV: production
-
 jobs:
   deploy:
     runs-on: ubuntu-20.04
