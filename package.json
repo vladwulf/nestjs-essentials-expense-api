@@ -1,5 +1,5 @@
 {
-  "name": "expense-api",
+  "name": "nestjs-essentials-expense-api",
   "version": "1.0.0",
   "description": "Expense API example project for NestJs Essentials course",
   "author": "Vladimir Agaev",
@@ -8,11 +8,12 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "prisma:deploy": "prisma migrate deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -27,12 +28,12 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/schedule": "^2.1.0",
-    "@prisma/client": "^4.1.1",
+    "@prisma/client": "^4.9.0",
     "argon2": "^0.28.7",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "^2.0.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "connect-redis": "^6.1.3",
     "express-session": "^1.17.3",
     "redis": "^4.2.0",
@@ -41,7 +42,7 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.0.0",
+    "@nestjs/cli": "^9.2.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@types/cache-manager": "^4.0.2",
@@ -59,7 +60,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "28.1.2",
     "prettier": "^2.3.2",
-    "prisma": "^4.1.1",
+    "prisma": "^4.9.0",
     "source-map-support": "^0.5.20",
     "supertest": "^6.1.3",
     "ts-jest": "28.0.5",
@@ -84,5 +85,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }

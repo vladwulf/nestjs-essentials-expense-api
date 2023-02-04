@@ -1,0 +1,50 @@
+name: Deploy to VPS
+on:
+  workflow_dispatch:
+    branches:
+      - main
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node: [18.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: Deploy Migrations
+        run: npm run prisma:deploy
+      - name: SCP dist folder
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          source: 'node_modules,dist/*'
+          target: '/home/github/expense-api'
+      - name: PM2 restart
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: >
+            DATABASE_URL=${{ secrets.DATABASE_URL }} 
+            REDIS_URL=${{ secrets.REDIS_URL }} 
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }} 
+            pm2 reload /home/${{ secrets.USER }}/expense-api/dist/src/main.js 
+            || 
+            DATABASE_URL=${{ secrets.DATABASE_URL }} 
+            REDIS_URL=${{ secrets.REDIS_URL }} 
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+            pm2 start /home/${{ secrets.USER }}/expense-api/dist/src/main.js
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}

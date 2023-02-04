@@ -10,6 +10,7 @@ import { ExpenseModule } from './expense/expense.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -43,5 +44,6 @@ import { ScheduleModule } from '@nestjs/schedule';
       useClass: AdminGuard,
     },
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
