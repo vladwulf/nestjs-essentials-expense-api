@@ -28,3 +28,10 @@ jobs:
           port: 22
           source: 'dist/*'
           target: '/home/github/expense-api'
+      - name: Restart Node App
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: pm2 restart /home/github/expense-api/dist/main.js
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
