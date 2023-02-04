@@ -31,7 +31,7 @@ jobs:
       - name: Restart Node App
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: pm2 restart /home/github/expense-api/dist/main.js
+          command: pm2 start --update-env /home/${{ secrets.USER }}/expense-api/dist/src/main.js
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
