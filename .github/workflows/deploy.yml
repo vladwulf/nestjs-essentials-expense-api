@@ -21,7 +21,8 @@ jobs:
         run: npm run build
       - name: SSHPASS Github Action
         uses: matheusvanzan/sshpass-action@v2
-        host: ${{ secrets.HOST }}
-        user: ${{ secrets.USER }}
-        pass: ${{ secrets.PASSWORD }}
-        run: rsync -rvz dist/* ${{ secrets.USER }}@${{ secrets.HOST }}:/home/github/expense-api
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          pass: ${{ secrets.PASSWORD }}
+          run: rsync -rvz dist/* ${{ secrets.USER }}@${{ secrets.HOST }}:/home/github/expense-api
