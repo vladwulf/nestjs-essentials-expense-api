@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           port: 22
-          source: 'dist/*'
+          source: 'node_modules,dist/*'
           target: '/home/github/expense-api'
       - name: Restart Node App
         uses: garygrossgarten/github-action-ssh@release
