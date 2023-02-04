@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build application
         run: npm run build
       - name: Copy files to server
