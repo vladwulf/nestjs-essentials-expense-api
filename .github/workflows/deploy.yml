@@ -19,12 +19,9 @@ jobs:
         run: npm ci
       - name: Build application
         run: npm run build
-      - run: tar -cvf dist.tar dist
-      - name: Copy files to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
-          source: 'dist.tar'
-          target: /home/express-api
+      - name: SSHPASS Github Action
+        uses: matheusvanzan/sshpass-action@v2
+        host: ${{ secrets.HOST }}
+        user: ${{ secrets.USER }}
+        pass: ${{ secrets.PASSWORD }}
+        run: rsync -rvz dist/* ${{ secrets.USER }}@${{ secrets.HOST }}:/home/github/expense-api
