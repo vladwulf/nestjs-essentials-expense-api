@@ -8,23 +8,21 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node: [16.x]
+        node: [18.x]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Check node version
-        run: node -v
-      - name: ls
-        run: ls -al
       - name: Install dependencies
         run: npm ci
+      - name: ls
+        run: ls -l
+      - run: npx nest --version
       - name: Build application
         run: npm run build
       - name: Copy files to server
@@ -35,5 +33,3 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           source: ./dist
           target: /home/express-api/dist
-    # - name: Restart node.js application
-    #   run: ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'sudo pm2 restart /home/express-api/dist/src/main.js'
